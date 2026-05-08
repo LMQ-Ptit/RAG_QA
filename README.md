@@ -64,13 +64,8 @@ Run `notebooks/test.ipynb` to quickly test each component:
 ## Test Interface
 
 ### Main UI
-![Main Interface](./images/main_interface.png)
+![Main Interface](./images/image.png)
 
-### Retrieval Results
-![Retrieval Results](./images/retrieval_results.png)
-
-### Answer Generation
-![Answer Generation](./images/answer_generation.png)
 
 ## Configuration (.env)
 
