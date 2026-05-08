@@ -1,0 +1,27 @@
+# RAG-QA Requirements
+# ====================
+
+# Core ML
+torch>=2.0.0
+unsloth
+transformers==4.56.2
+trl==0.22.2
+datasets>=4.3.0
+huggingface_hub>=0.34.0
+sentencepiece
+protobuf
+faiss-gpu-cu12
+
+# API Server
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+pydantic>=2.0.0
+pyngrok>=7.0.0
+nest-asyncio
+
+# Frontend
+gradio>=4.0.0
+
+# Utilities
+python-dotenv>=1.0.0
+requests>=2.31.0
