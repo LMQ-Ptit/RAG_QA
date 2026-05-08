@@ -1,8 +1,8 @@
 # RAG-QA System
 
-Hệ thống Hỏi-Đáp sử dụng RAG (Retrieval-Augmented Generation) kết hợp FAISS và Llama 3.2.
+A Question-Answering system using RAG (Retrieval-Augmented Generation) combining FAISS and Llama 3.2.
 
-## Cấu trúc
+## Project Structure
 
 ```
 RAG_QA/
@@ -11,9 +11,9 @@ RAG_QA/
 ├── .env                 # Tokens & config
 ├── .gitignore
 └── src/
-    ├── embedding.py     # DistilBERT - embed câu hỏi
-    ├── retriever.py     # FAISS - tìm context
-    ├── qa_model.py      # Llama 3.2 - generate câu trả lời
+    ├── embedding.py     # DistilBERT - embed questions
+    ├── retriever.py     # FAISS - retrieve context
+    ├── qa_model.py      # Llama 3.2 - generate answers
     ├── api.py           # FastAPI endpoint
     └── ui.py            # Gradio UI
 ```
@@ -21,23 +21,23 @@ RAG_QA/
 ## Setup
 
 ```bash
-# Cài đặt dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-# Copy và edit .env (thêm tokens của bạn)
+# Copy and edit .env (add your tokens)
 cp .env .env.local
 ```
 
-## Chạy
+## Running
 
 ```bash
-# Chạy cả API + UI
+# Run both API + UI
 python main.py
 
-# Chỉ API
+# API only
 python main.py api
 
-# Chỉ UI
+# UI only
 python main.py ui
 ```
 
@@ -47,21 +47,32 @@ python main.py ui
 # Health check
 GET /health
 
-# Hỏi đáp
+# Ask question
 POST /ask
 Body: {"question": "...", "top_k": 3}
 ```
 
-## Test nhanh
+## Quick Test
 
-Chạy file `notebooks/test.ipynb` để test nhanh từng component:
+Run `notebooks/test.ipynb` to quickly test each component:
 
-1. **Test Embedding** - Kiểm tra DistilBERT
-2. **Test Retrieval** - Tìm context với FAISS
-3. **Test QA Model** - Generate câu trả lời
-4. **Test Full Pipeline** - RAG hoàn chỉnh
+1. **Test Embedding** - Verify DistilBERT embeddings
+2. **Test Retrieval** - Search context with FAISS
+3. **Test QA Model** - Generate answers
+4. **Test Full Pipeline** - Complete RAG pipeline
 
-## Config (.env)
+## Test Interface
+
+### Main UI
+![Main Interface](./images/main_interface.png)
+
+### Retrieval Results
+![Retrieval Results](./images/retrieval_results.png)
+
+### Answer Generation
+![Answer Generation](./images/answer_generation.png)
+
+## Configuration (.env)
 
 ```env
 NGROK_TOKEN=your_ngrok_token
