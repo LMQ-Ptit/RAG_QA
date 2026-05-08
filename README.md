@@ -2,6 +2,33 @@
 
 A Question-Answering system using RAG (Retrieval-Augmented Generation) combining FAISS and Llama 3.2.
 
+## Dataset
+
+This project uses the SQuAD (Stanford Question Answering Dataset) and a pre-embedded version available at [MinhQuy24/SQuAD_QA_Vector_Database](https://huggingface.co/datasets/MinhQuy24/SQuAD_QA_Vector_Database) on HuggingFace. The FAISS index (`my_index.faiss`) and the embedding column (`question_embedding`) are used for efficient retrieval.
+
+## System Architecture
+
+The RAG-QA system consists of the following main components:
+
+- **Embedding:** Uses DistilBERT (`distilbert-base-uncased`) to encode questions into dense vector embeddings.
+- **Retriever:** Utilizes FAISS to search for the most relevant contexts from the embedded dataset.
+- **QA Model:** Employs Llama 3.2 (`MinhQuy24/llama3.2_3B_SQuAD_QA`) to generate answers based on the retrieved context.
+- **API:** FastAPI provides a RESTful endpoint for question answering.
+- **UI:** Gradio is used to build an interactive user interface.
+
+The pipeline works as follows:
+1. The user submits a question.
+2. The question is embedded using DistilBERT.
+3. FAISS retrieves top relevant contexts from the vector database.
+4. The QA model generates an answer using the retrieved context and the original question.
+5. The answer is returned via API or UI.
+
+## QA Model Details
+
+- **Model:** `MinhQuy24/llama3.2_3B_SQuAD_QA` (Llama 3.2 fine-tuned on SQuAD)
+- **Loading:** The model is loaded and run using the `unsloth` and `transformers` libraries, with support for 4-bit quantization for efficiency.
+- **Prompting:** The model receives a prompt containing both the context and the question, and generates a concise answer.
+
 ## Project Structure
 
 ```
