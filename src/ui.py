@@ -42,8 +42,8 @@ def build_ui():
             with gr.Column(scale=2):
                 output_display = gr.Markdown("*Results will appear here...*")
 
-        submit_btn.click(fn=ask_rag_system, inputs=[api_url_input, question_input, top_k_input], outputs=[output_display])
-        question_input.submit(fn=ask_rag_system, inputs=[api_url_input, question_input, top_k_input], outputs=[output_display])
+        for event in [submit_btn.click, question_input.submit]:
+            event(fn=ask_rag_system, inputs=[api_url_input, question_input, top_k_input], outputs=[output_display])
 
     return demo
 

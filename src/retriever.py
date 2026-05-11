@@ -8,7 +8,9 @@ load_dotenv()
 DATASET_NAME = 'MinhQuy24/SQuAD_QA_Vector_Database'
 INDEX_FILE = "my_index.faiss"
 EMBEDDING_COLUMN = "question_embedding"
-HF_TOKEN = os.getenv("HF_TOKEN") or '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'
+HF_TOKEN = os.getenv("HF_TOKEN")
+if not HF_TOKEN:
+    raise ValueError("HF_TOKEN environment variable is required")
 
 embeddings_dataset = load_dataset(DATASET_NAME, split="train", token=HF_TOKEN)
 

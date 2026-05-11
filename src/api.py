@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import uvicorn
 import asyncio
 
 from .embedding import get_embeddings
@@ -27,13 +26,16 @@ app = FastAPI(title="SQuAD RAG API")
 @app.post("/ask", response_model=ChatResponse)
 async def ask_bot(request: ChatRequest):
     try:
-        input_quest_embedding = get_embeddings([request.question]).cpu().detach().numpy()
+        embedding = await asyncio.to_thread(get_embeddings, [request.question])
+        input_quest_embedding = embedding.cpu().numpy()
         scores, samples = search_similar(input_quest_embedding, k=request.top_k)
 
-        results = []
-        for context in samples['context']:
-            answer = generate_answer(context, request.question)
-            results.append(QAItem(answer=answer, context=context))
+        results = await asyncio.gather(*[
+            asyncio.to_thread(generate_answer, context, request.question)
+            for context in samples['context']
+        ])
+        results = [QAItem(answer=answer, context=context)
+                    for answer, context in zip(results, samples['context'])]
 
         return ChatResponse(question=request.question, results=results)
 

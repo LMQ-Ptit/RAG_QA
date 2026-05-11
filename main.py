@@ -30,9 +30,7 @@ def run_api():
     print(f"📖 Docs: {public_url.public_url}/docs")
     print("=" * 50)
 
-    config = uvicorn.Config(app, host=host, port=port, loop="asyncio")
-    server = uvicorn.Server(config)
-    asyncio.create_task(server.serve())
+    uvicorn.run(app, host=host, port=port, loop="asyncio")
 
 
 def run_ui():
